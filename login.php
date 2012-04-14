@@ -244,7 +244,7 @@ function change_password()
 			$password_2 = trim($_POST['password_2']);
 			
 			// Jeśli przesłane nowe hasła są takie same to można ustawić nowe hasło
-			if($password_1 == $password_2 AND $_COOKIE['session_key'] == $_POST['session_key']) //AND $_COOKIE['session_key'] == $_POST['session_key']
+			if($password_1 == $password_2) //AND $_COOKIE['session_key'] == $_POST['session_key'] # Należy dodać sprawdzanie tokenu sesji aby w pełni zabezpieczyć formularz.
 			{
 				//generowanie klucza dla nowego hasła
 				$password_sha1 = sha1($password_1.SECRET_KEY);
@@ -273,7 +273,10 @@ function change_password()
 			Powtórz:<br />
 			<input type="password" name="password_2" value="" /><br />						
 			<input type="submit" name="button_submit" value="zmień hasło" />
+
+			<!-- Przekazywanie tokenu sesji. -->
 			<input type="hidden" name="session_key" value="'.$_COOKIE['session_key'].'" />	
+			
 			</form>
 			';
 			//<input type="hidden" name="session_key" value="'.$_COOKIE['session_key'].'" />
